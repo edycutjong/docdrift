@@ -1,0 +1,60 @@
+/* === CUTE ASSET LAYER — sits on top of _asset-utilities.css === */
+/* Token-driven (uses each project's --primary / --accent), so it themes per app. */
+@import url('./_asset-utilities.css');
+
+body { display: flex; align-items: center; justify-content: center; }
+
+.cute-glow {
+  position: absolute; inset: 0; z-index: -1;
+  background: radial-gradient(58% 64% at 26% 46%, var(--primary-glow), transparent 70%),
+              radial-gradient(48% 54% at 88% 78%, var(--accent-glow), transparent 70%);
+}
+.cute-dots {
+  position: absolute; inset: 0; z-index: -1;
+  background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.cute-wrap { display: flex; align-items: center; width: 100%; box-sizing: border-box; }
+.cute-col  { display: flex; flex-direction: column; }
+
+.cute-eyebrow {
+  font-family: var(--font-mono); font-weight: 600;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--primary);
+}
+.cute-title {
+  font-family: 'Fredoka', sans-serif; font-weight: 700;
+  line-height: .92; letter-spacing: -1px; margin: 0;
+}
+.cute-grad { background: linear-gradient(135deg, var(--primary), var(--accent)); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.cute-tag  { color: var(--text-mid); margin: 0; line-height: 1.4; font-weight: 400; }
+
+.cute-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+.cute-pill {
+  font-family: var(--font-mono); padding: 8px 16px; border-radius: 9999px;
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 32%, transparent);
+  color: var(--text-hi); white-space: nowrap;
+}
+.cute-pill.alt {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 32%, transparent);
+}
+
+.cute-mascot { filter: drop-shadow(0 26px 60px rgba(0,0,0,.55)); display: block; }
+
+.cute-card {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-24);
+  box-shadow: var(--shadow-md);
+}
+.cute-card-emoji { /* small icon chip */
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; border-radius: var(--radius-16);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+.sparkle { position: absolute; color: var(--accent); }
+.sparkle.p { color: var(--primary); }

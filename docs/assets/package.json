@@ -1,0 +1,12 @@
+{
+  "name": "asset-export",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "export": "playwright install chromium && node export.cjs",
+    "preview": "npx serve ."
+  },
+  "devDependencies": {
+    "playwright": "^1.40.0"
+  }
+}

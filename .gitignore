@@ -11,5 +11,5 @@ __pycache__/
 .env.production.local
 !.env.example
 
-docs/assets
+docs/assets/node_modules/
 docdrift_demo.mp4

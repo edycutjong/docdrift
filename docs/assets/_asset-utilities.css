@@ -1,0 +1,102 @@
+@import url('./_tokens.css');
+
+/* === ASSET UTILITIES — hackathon pipeline only === */
+/* Used exclusively by generate-*.html files.
+   Real projects should @import _tokens.css directly and not this file. */
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--bg-base);
+  color: var(--text-hi);
+  font-family: var(--font-ui);
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--gradient-mesh);
+  z-index: -2;
+}
+
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--grid-bg);
+  z-index: -1;
+}
+
+.noise-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--noise-svg);
+  mix-blend-mode: overlay;
+  opacity: 0.04;
+  z-index: var(--z-overlay);
+  pointer-events: none;
+}
+
+.glass-panel {
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-24);
+  box-shadow: var(--shadow-md);
+}
+
+.text-gradient {
+  background: var(--gradient-hero);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.tech-pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-mid);
+  white-space: nowrap;
+}
+
+.status-dot-pulse {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-success);
+  border-radius: var(--radius-full);
+  display: inline-block;
+  box-shadow: 0 0 8px var(--color-success-glow);
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.5;
+    box-shadow: 0 0 4px var(--color-success-glow);
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+    box-shadow: 0 0 12px var(--color-success);
+  }
+  100% {
+    transform: scale(0.85);
+    opacity: 0.5;
+    box-shadow: 0 0 4px var(--color-success-glow);
+  }
+}
