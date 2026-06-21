@@ -1,0 +1,21 @@
+{
+  "slug": "docdrift",
+  "name": "DocDrift",
+  "version": "0.3.0",
+  "tagline": "AI code-to-docs drift detector that extracts code symbols and audits documentation.",
+  "description": "DocDrift is an AI-powered documentation auditing app built as an Anna App. It scans a local codebase directory, extracts exported symbols (function names, API routes, class signatures) across multiple languages, cross-references them against all documentation mentions (READMEs, comments, markdown guides), flags stale references, and proposes corrected documentation. Everything is managed through an interactive card-based review queue where the developer has final approval. Cryptographic encryption (AES-GCM-256) protects proprietary IP.",
+  "category": "developer-tools",
+  "logo_url": "https://github.com/edycutjong/docdrift/raw/main/public/icon.svg",
+  "cover_url": "https://github.com/edycutjong/docdrift/raw/main/public/og-image.png",
+  "screenshots": [
+    "https://github.com/edycutjong/docdrift/raw/main/public/og-image.png"
+  ],
+  "homepage_url": "https://github.com/edycutjong/docdrift",
+  "support_url": "https://github.com/edycutjong/docdrift/issues",
+  "privacy_url": "https://github.com/edycutjong/docdrift#privacy",
+  "pricing_model": "free",
+
+  "bundled_executas": {
+    "docdrift": { "path": "./executas/docdrift" }
+  }
+}

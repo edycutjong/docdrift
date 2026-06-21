@@ -1,0 +1,15 @@
+node_modules/
+.venv/
+__pycache__/
+.DS_Store
+*.patch
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+
+docs/assets
+docdrift_demo.mp4

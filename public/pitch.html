@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocDrift — Pitch Deck</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@300;400;500;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Inter',sans-serif;background:#0a0f14;}
+    .font-display{font-family:'Fredoka',sans-serif;}
+    .mono{font-family:'JetBrains Mono',monospace;}
+    .slide{display:none;animation:fade .45s ease;}
+    .slide.active{display:flex;}
+    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    .floaty{animation:floaty 4.5s ease-in-out infinite}
+    @keyframes twinkle{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+    .tw{animation:twinkle 2.4s ease-in-out infinite}
+    .glow{background:radial-gradient(60% 60% at 30% 40%, rgba(6,182,212,.18), transparent 70%);}
+    .dotgrid{background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:26px 26px;}
+    .chip{display:inline-flex;align-items:center;justify-content:center;}
+  </style>
+</head>
+<body class="text-slate-100 h-full overflow-hidden flex flex-col">
+  <div class="flex-1 relative dotgrid">
+    <div class="absolute inset-0 glow pointer-events-none"></div>
+    <div class="absolute inset-0 flex items-center justify-center p-8 md:p-14">
+
+      <!-- 1 TITLE -->
+      <section class="slide active max-w-6xl w-full flex-col md:flex-row items-center gap-12">
+        <div class="flex-1 flex flex-col items-start">
+          <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-5">Anna AI-Native 2026 · Developer Tools</span>
+          <h1 class="font-display text-6xl md:text-7xl font-bold leading-none mb-5 flex items-center gap-4">DocDrift <i data-lucide="scan-search" class="w-12 h-12 text-cyan-400"></i></h1>
+          <p class="text-xl text-slate-300 max-w-md mb-7">Your docs lie the moment code changes. <span class="text-cyan-300 font-semibold">DocDrift catches them</span> — and drafts the fix.</p>
+          <div class="flex flex-wrap gap-2 mono text-xs">
+            <span class="px-3 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-200">Anna App · schema 2</span>
+            <span class="px-3 py-1.5 rounded-full bg-violet-400/10 border border-violet-400/30 text-violet-200">AES-GCM-256</span>
+            <span class="px-3 py-1.5 rounded-full bg-slate-400/10 border border-slate-500/30 text-slate-300">Human-in-the-loop</span>
+          </div>
+        </div>
+        <div class="flex-1 flex justify-center relative">
+          <div class="tw absolute top-4 left-10 text-2xl text-violet-300">✦</div>
+          <div class="tw absolute bottom-6 right-12 text-xl text-cyan-300" style="animation-delay:.9s">✦</div>
+          <img src="icon.svg" alt="DocDrift mascot" class="floaty w-64 h-64 md:w-80 md:h-80 drop-shadow-2xl">
+        </div>
+      </section>
+
+      <!-- 2 PROBLEM -->
+      <section class="slide max-w-5xl w-full flex-col">
+        <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-4">Slide 02 // The Problem</span>
+        <h2 class="font-display text-4xl md:text-5xl font-semibold mb-6">Documentation rots in the dark</h2>
+        <p class="text-slate-300 text-lg max-w-3xl leading-relaxed mb-8">A function gets renamed. An endpoint is deleted. A parameter changes. Nobody updates the README — because <span class="text-white font-semibold">nothing watches it</span>. Every reader after that is misled.</p>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><span class="chip w-11 h-11 rounded-xl bg-cyan-400/10 border border-cyan-400/25 mb-3"><i data-lucide="bug" class="w-5 h-5 text-cyan-300"></i></span><div class="font-semibold mb-1">Silent bugs</div><div class="text-slate-400 text-sm">Devs code against docs that describe a function that no longer exists.</div></div>
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><span class="chip w-11 h-11 rounded-xl bg-cyan-400/10 border border-cyan-400/25 mb-3"><i data-lucide="hourglass" class="w-5 h-5 text-cyan-300"></i></span><div class="font-semibold mb-1">Onboarding drag</div><div class="text-slate-400 text-sm">New hires lose days trusting stale guides.</div></div>
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><span class="chip w-11 h-11 rounded-xl bg-violet-400/10 border border-violet-400/25 mb-3"><i data-lucide="lock" class="w-5 h-5 text-violet-300"></i></span><div class="font-semibold mb-1">Can't use cloud AI</div><div class="text-slate-400 text-sm">Auditing proprietary code means shipping IP to someone else's model.</div></div>
+        </div>
+      </section>
+
+      <!-- 3 SOLUTION -->
+      <section class="slide max-w-5xl w-full flex-col md:flex-row items-center gap-10">
+        <div class="flex-1">
+          <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-4 block">Slide 03 // The Solution</span>
+          <h2 class="font-display text-4xl md:text-5xl font-semibold mb-6">An AI that keeps code &amp; docs honest</h2>
+          <ul class="space-y-4 text-slate-300">
+            <li class="flex gap-3"><span class="text-cyan-400 text-xl">①</span><span><b class="text-white">Scans locally.</b> An Executa plugin walks the repo, extracts live code symbols.</span></li>
+            <li class="flex gap-3"><span class="text-cyan-400 text-xl">②</span><span><b class="text-white">AI reconciles.</b> The Anna host LLM classifies every doc mention as fresh, stale, or deleted.</span></li>
+            <li class="flex gap-3"><span class="text-cyan-400 text-xl">③</span><span><b class="text-white">You approve.</b> Drift lands in a review queue — you accept, edit, or skip every fix.</span></li>
+          </ul>
+          <p class="mt-6 text-sm text-violet-200/80 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 shrink-0"></i> Snippets are AES-GCM-256 encrypted locally — raw IP never leaves the sandbox in plaintext.</p>
+        </div>
+        <div class="flex-1 flex justify-center"><img src="icon.svg" class="floaty w-56 h-56" alt=""></div>
+      </section>
+
+      <!-- 4 PRODUCT FLOW -->
+      <section class="slide max-w-6xl w-full flex-col">
+        <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-4">Slide 04 // Core Product Flow</span>
+        <h2 class="font-display text-4xl font-semibold mb-8">Scan → Reconcile → Review → Ship</h2>
+        <div class="flex flex-col md:flex-row items-stretch gap-3 mono text-sm">
+          <div class="flex-1 rounded-2xl bg-cyan-400/[0.06] border border-cyan-400/30 p-5"><span class="chip w-9 h-9 rounded-lg bg-cyan-400/10 border border-cyan-400/25 mb-2"><i data-lucide="folder-search" class="w-4 h-4 text-cyan-300"></i></span><div>project.scan</div><div class="text-slate-400 text-xs mt-1">symbols + SHA-256</div></div>
+          <div class="self-center text-cyan-400 text-2xl">➜</div>
+          <div class="flex-1 rounded-2xl bg-cyan-400/[0.06] border border-cyan-400/30 p-5"><span class="chip w-9 h-9 rounded-lg bg-cyan-400/10 border border-cyan-400/25 mb-2"><i data-lucide="bot" class="w-4 h-4 text-cyan-300"></i></span><div>docs.crossref</div><div class="text-slate-400 text-xs mt-1">LLM: fresh / stale / deleted</div></div>
+          <div class="self-center text-cyan-400 text-2xl">➜</div>
+          <div class="flex-1 rounded-2xl bg-violet-400/[0.06] border border-violet-400/30 p-5"><span class="chip w-9 h-9 rounded-lg bg-violet-400/10 border border-violet-400/25 mb-2"><i data-lucide="clipboard-check" class="w-4 h-4 text-violet-300"></i></span><div>review queue</div><div class="text-slate-400 text-xs mt-1">drift_viewer · human approval</div></div>
+          <div class="self-center text-cyan-400 text-2xl">➜</div>
+          <div class="flex-1 rounded-2xl bg-violet-400/[0.06] border border-violet-400/30 p-5"><span class="chip w-9 h-9 rounded-lg bg-violet-400/10 border border-violet-400/25 mb-2"><i data-lucide="package" class="w-4 h-4 text-violet-300"></i></span><div>docs.patchgen</div><div class="text-slate-400 text-xs mt-1">unified patch → R2 link</div></div>
+        </div>
+        <p class="mt-6 text-slate-400 text-sm">Bonus tools: <span class="text-cyan-200">project.semantic_search</span> (embeddings), <span class="text-cyan-200">project.generate_diagram</span> (image gen), <span class="text-cyan-200">project.history</span> (APS KV).</p>
+      </section>
+
+      <!-- 5 ARCHITECTURE -->
+      <section class="slide max-w-5xl w-full flex-col">
+        <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-4">Slide 05 // Technical Architecture</span>
+        <h2 class="font-display text-4xl font-semibold mb-8">Native Anna app — not a chatbot wrapper</h2>
+        <div class="grid md:grid-cols-2 gap-4 text-sm">
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><div class="font-display text-lg text-cyan-300 mb-3 flex items-center gap-2"><i data-lucide="app-window" class="w-5 h-5"></i> App UI (iframe)</div><ul class="space-y-1.5 text-slate-300"><li>Multi-view: <span class="mono text-cyan-200">main</span> + <span class="mono text-cyan-200">drift_viewer</span></li><li><span class="mono text-cyan-200">tools.invoke</span> → real Executa calls</li><li><span class="mono text-cyan-200">chat.append_artifact</span> SVG cards</li><li><span class="mono text-cyan-200">upload</span> → R2 download links</li></ul></div>
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><div class="font-display text-lg text-violet-300 mb-3 flex items-center gap-2"><i data-lucide="terminal" class="w-5 h-5"></i> Executa (Python, stdio JSON-RPC)</div><ul class="space-y-1.5 text-slate-300"><li>Reverse-RPC <span class="mono text-violet-200">sampling/createMessage</span></li><li><span class="mono text-violet-200">storage</span> get/set/list/delete (APS KV)</li><li><span class="mono text-violet-200">files/*</span> durable APS objects</li><li><span class="mono text-violet-200">embeddings</span> · <span class="mono text-violet-200">image/generate</span></li></ul></div>
+        </div>
+        <p class="mt-5 text-slate-400 text-sm flex flex-wrap items-center gap-x-2 gap-y-1"><i data-lucide="check" class="w-4 h-4 text-cyan-300"></i> <span class="mono">anna-app validate --strict</span> passes · <i data-lucide="check" class="w-4 h-4 text-cyan-300"></i> boots in <span class="mono">anna-app dev</span> · <i data-lucide="lock" class="w-4 h-4 text-violet-300"></i> AES-GCM-256 local crypto.</p>
+      </section>
+
+      <!-- 6 DEMO -->
+      <section class="slide max-w-5xl w-full flex-col">
+        <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-4">Slide 06 // Live Demo Highlights</span>
+        <h2 class="font-display text-4xl font-semibold mb-8">What the judges see</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><span class="chip w-9 h-9 rounded-full bg-cyan-400/15 border border-cyan-400/40 text-cyan-300 font-bold text-sm mb-2">1</span><div class="font-semibold">Point it at a repo</div><div class="text-slate-400 text-sm">Real directory walk, symbols extracted live.</div></div>
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><span class="chip w-9 h-9 rounded-full bg-cyan-400/15 border border-cyan-400/40 text-cyan-300 font-bold text-sm mb-2">2</span><div class="font-semibold">Drift cards appear</div><div class="text-slate-400 text-sm">LLM-classified; side-by-side code↔doc viewer.</div></div>
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><span class="chip w-9 h-9 rounded-full bg-cyan-400/15 border border-cyan-400/40 text-cyan-300 font-bold text-sm mb-2">3</span><div class="font-semibold">Approve → patch</div><div class="text-slate-400 text-sm">Accepted fixes become a downloadable patch (R2).</div></div>
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><span class="chip w-9 h-9 rounded-full bg-cyan-400/15 border border-cyan-400/40 text-cyan-300 font-bold text-sm mb-2">4</span><div class="font-semibold">Audit card in chat</div><div class="text-slate-400 text-sm">An SVG summary artifact posts back to the Anna timeline.</div></div>
+        </div>
+        <p class="mt-5 text-slate-400 text-sm">No Anna account? It also runs <b class="text-slate-200">standalone in a browser</b> with seeded data.</p>
+      </section>
+
+      <!-- 7 ANNA FIT -->
+      <section class="slide max-w-5xl w-full flex-col">
+        <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-4">Slide 07 // Fit with Anna</span>
+        <h2 class="font-display text-4xl font-semibold mb-6">We use the platform, deeply &amp; for real</h2>
+        <div class="flex flex-wrap gap-2 mono text-xs mb-6">
+          <span class="px-3 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/30">Executa stdio tools</span>
+          <span class="px-3 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/30">sampling/createMessage</span>
+          <span class="px-3 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/30">storage get/set/list/delete</span>
+          <span class="px-3 py-1.5 rounded-full bg-violet-400/10 border border-violet-400/30">files/* (APS)</span>
+          <span class="px-3 py-1.5 rounded-full bg-violet-400/10 border border-violet-400/30">upload → R2</span>
+          <span class="px-3 py-1.5 rounded-full bg-violet-400/10 border border-violet-400/30">embeddings</span>
+          <span class="px-3 py-1.5 rounded-full bg-violet-400/10 border border-violet-400/30">image/generate</span>
+          <span class="px-3 py-1.5 rounded-full bg-slate-400/10 border border-slate-500/30">multi-view windows</span>
+          <span class="px-3 py-1.5 rounded-full bg-slate-400/10 border border-slate-500/30">chat.append_artifact</span>
+        </div>
+        <p class="text-slate-300 max-w-3xl">Plus a sandboxed <b class="text-white">Developer Console</b> that exercises the Host-API surface live — routing to the real platform inside Anna, returning clearly-labeled mock responses standalone. <span class="text-cyan-300">Transparent by design.</span></p>
+      </section>
+
+      <!-- 8 MARKET -->
+      <section class="slide max-w-5xl w-full flex-col">
+        <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-4">Slide 08 // Who needs this</span>
+        <h2 class="font-display text-4xl font-semibold mb-8">Every team that ships code &amp; docs</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="rounded-3xl bg-cyan-400/[0.06] border border-cyan-400/30 p-6"><div class="font-display text-3xl text-cyan-300 mb-1">100M+</div><div class="text-slate-300 text-sm">developers worldwide — all of them maintain drifting docs.</div></div>
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><div class="font-display text-3xl mb-1">DevEx</div><div class="text-slate-400 text-sm">A booming category: docs quality is a top onboarding KPI.</div></div>
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><div class="font-display text-3xl mb-1">Private</div><div class="text-slate-400 text-sm">Regulated/IP-sensitive teams that can't paste code into cloud chat.</div></div>
+        </div>
+      </section>
+
+      <!-- 9 EDGE -->
+      <section class="slide max-w-5xl w-full flex-col">
+        <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-4">Slide 09 // Competitive Edge</span>
+        <h2 class="font-display text-4xl font-semibold mb-8">Why DocDrift wins</h2>
+        <div class="space-y-3 text-sm">
+          <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-5 flex gap-4 items-center"><span class="chip w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-[11px] font-bold text-slate-300 shrink-0">VS</span><div><b class="text-white">manual review</b> — automatic and continuous, not a once-a-quarter chore.</div></div>
+          <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-5 flex gap-4 items-center"><span class="chip w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-[11px] font-bold text-slate-300 shrink-0">VS</span><div><b class="text-white">cloud AI tools</b> — air-gapped AES-GCM-256; your source never leaves in plaintext.</div></div>
+          <div class="rounded-2xl bg-white/[0.03] border border-white/10 p-5 flex gap-4 items-center"><span class="chip w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-[11px] font-bold text-slate-300 shrink-0">VS</span><div><b class="text-white">linters</b> — semantic embeddings catch drift that string/regex match misses.</div></div>
+          <div class="rounded-2xl bg-cyan-400/[0.07] border border-cyan-400/30 p-5 flex gap-4 items-center"><span class="chip w-10 h-10 rounded-lg bg-cyan-400/15 border border-cyan-400/40 shrink-0"><i data-lucide="heart" class="w-5 h-5 text-cyan-300"></i></span><div><b class="text-cyan-200">And it's delightful.</b> A cute mascot + buttery UI means devs actually <i>run</i> it — adoption is the whole game.</div></div>
+        </div>
+      </section>
+
+      <!-- 10 ROADMAP -->
+      <section class="slide max-w-5xl w-full flex-col">
+        <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-4">Slide 10 // Roadmap</span>
+        <h2 class="font-display text-4xl font-semibold mb-8">30 / 60 / 90</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><div class="mono text-cyan-400 text-xs mb-2">30 DAYS</div><div class="font-semibold mb-1">Watch mode</div><div class="text-slate-400 text-sm">Re-scan on save; post drift deltas to chat.</div></div>
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><div class="mono text-cyan-400 text-xs mb-2">60 DAYS</div><div class="font-semibold mb-1">GitHub PRs</div><div class="text-slate-400 text-sm">Scan PR diffs, comment inline on drift.</div></div>
+          <div class="rounded-3xl bg-white/[0.03] border border-white/10 p-6"><div class="mono text-cyan-400 text-xs mb-2">90 DAYS</div><div class="font-semibold mb-1">Durable history</div><div class="text-slate-400 text-sm">Browse &amp; diff past audits from APS Files.</div></div>
+        </div>
+      </section>
+
+      <!-- 11 TEAM -->
+      <section class="slide max-w-5xl w-full flex-col md:flex-row items-center gap-10">
+        <div class="flex-1">
+          <span class="mono text-[11px] tracking-[0.3em] text-cyan-400 uppercase mb-4 block">Slide 11 // Team</span>
+          <h2 class="font-display text-4xl font-semibold mb-6">Built solo, shipped clean</h2>
+          <ul class="space-y-3 text-slate-300">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-300 shrink-0"></i><span><b class="text-white">11</b> plugin tests (+54 subtests) passing</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-300 shrink-0"></i><span><span class="mono text-cyan-200">anna-app validate --strict</span> green</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-300 shrink-0"></i><span>Real reverse-RPC, multi-view, APS persistence</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="palette" class="w-4 h-4 text-violet-300 shrink-0"></i><span>Original animated mascot &amp; brand system</span></li>
+          </ul>
+        </div>
+        <div class="flex-1 flex justify-center"><img src="icon.svg" class="floaty w-52 h-52" alt=""></div>
+      </section>
+
+      <!-- 12 ASK -->
+      <section class="slide max-w-4xl w-full flex-col items-center text-center">
+        <img src="icon.svg" class="floaty w-40 h-40 mb-6" alt="">
+        <h2 class="font-display text-5xl md:text-6xl font-bold mb-5">Docs you can trust.</h2>
+        <p class="text-xl text-slate-300 max-w-xl mb-7">DocDrift makes documentation honest again — privately, delightfully, and natively on Anna.</p>
+        <div class="flex flex-wrap justify-center gap-2 mono text-xs">
+          <span class="px-3 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/30">Useful</span>
+          <span class="px-3 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/30">Working demo</span>
+          <span class="px-3 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/30">Real AI</span>
+          <span class="px-3 py-1.5 rounded-full bg-violet-400/10 border border-violet-400/30">Native to Anna</span>
+          <span class="px-3 py-1.5 rounded-full bg-violet-400/10 border border-violet-400/30">Delightful</span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer class="h-16 border-t border-white/10 bg-black/40 backdrop-blur-lg flex items-center justify-between px-6 md:px-10 shrink-0">
+    <div class="mono text-[10px] text-slate-500 uppercase tracking-wider">DocDrift · Anna AI-Native 2026</div>
+    <div class="flex items-center gap-3">
+      <button onclick="prevSlide()" class="px-4 py-1.5 border border-white/15 hover:border-cyan-400/50 rounded-lg text-xs mono text-slate-400 hover:text-cyan-200 transition">◀ PREV</button>
+      <span id="slide-num" class="text-xs mono text-cyan-400">1 / 12</span>
+      <button onclick="nextSlide()" class="px-4 py-1.5 border border-white/15 hover:border-cyan-400/50 rounded-lg text-xs mono text-slate-400 hover:text-cyan-200 transition">NEXT ▶</button>
+    </div>
+  </footer>
+
+  <script>
+    let i=0; const s=document.querySelectorAll('.slide'); const n=document.getElementById('slide-num');
+    function upd(){s.forEach((x,k)=>x.classList.toggle('active',k===i));n.textContent=`${i+1} / ${s.length}`;}
+    function nextSlide(){if(i<s.length-1){i++;upd();}}
+    function prevSlide(){if(i>0){i--;upd();}}
+    document.addEventListener('keydown',e=>{if(['ArrowLeft','PageUp'].includes(e.key))prevSlide();if(['ArrowRight','PageDown',' '].includes(e.key))nextSlide();});
+    if(window.lucide) lucide.createIcons();
+  </script>
+</body>
+</html>

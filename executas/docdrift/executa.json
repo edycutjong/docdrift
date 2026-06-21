@@ -1,0 +1,26 @@
+{
+  "slug": "docdrift",
+  "name": "DocDrift Engine",
+  "version": "1.0.0",
+  "executa_type": "tool",
+  "description": "Scans codebase, extracts symbols, hashes codebase state, encrypts snippets under AES-GCM-256, and cross-references markdown documentation. Persists scan history to Anna Persistent Storage (APS KV) and uploads patch artifacts to R2.",
+
+  "tool_id": "tool-dev-docdrift",
+  "type": "python",
+  "enabled": true,
+
+  "host_capabilities": ["aps.kv", "host.upload"],
+
+  "distribution": {
+    "active": "local",
+    "profiles": {
+      "local": {
+        "type": "local",
+        "supports_protocol": true,
+        "capabilities": ["project.scan", "docs.crossref", "docs.patchgen"]
+      }
+    }
+  },
+
+  "_comment": "Publish metadata (slug/name/version/executa_type) is read by `anna-app apps publish` / `anna-app executa publish`; dev fields (tool_id/type/enabled) are read by `anna-app dev`. Run `anna-app dev` from the app root to launch this executa locally."
+}

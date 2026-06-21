@@ -1,0 +1,14 @@
+{
+  "name": "docdrift",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI code-to-docs drift detector — Anna App",
+  "scripts": {
+    "dev": "anna-app dev",
+    "validate": "anna-app validate",
+    "test": "uv run --project executas/docdrift --with pytest python -m pytest tests/ -q"
+  },
+  "devDependencies": {
+    "@anna-ai/cli": "latest"
+  }
+}

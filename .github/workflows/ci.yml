@@ -1,0 +1,61 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ─── Python Quality & Security Gate ────────────────────────────────
+  python-verification:
+    name: "Python Verification & Crypto Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install cryptography pytest
+
+      - name: Run Cryptography & Parser Unit Tests
+        run: |
+          PYTHONPATH=. pytest tests/test_plugin.py -v
+
+  # ─── Frontend Quality Gate ─────────────────────────────────────────
+  frontend-verification:
+    name: "Frontend Asset Quality"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: docs/assets/package.json
+
+      - name: Install Asset Dependencies
+        run: |
+          cd docs/assets
+          npm ci
+
+      - name: Verify Asset Export Compile
+        run: |
+          cd docs/assets
+          npx playwright install --with-deps chromium
+          node export.cjs

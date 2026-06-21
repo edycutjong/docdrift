@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-label="DocDrift — AI code-to-docs drift detector">
+  <defs>
+    <linearGradient id="ddh-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1014"/>
+      <stop offset="1" stop-color="#0f1730"/>
+    </linearGradient>
+    <linearGradient id="ddh-title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="dd-ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="ddh-glow" cx="0.26" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#06b6d4" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1280" height="420" rx="28" fill="url(#ddh-bg)"/>
+  <rect width="1280" height="420" rx="28" fill="url(#ddh-glow)"/>
+
+  <!-- floating twinkles -->
+  <g>
+    <circle cx="560" cy="86" r="3" fill="#22d3ee" opacity="0.5"><animate attributeName="cy" values="86;64;86" dur="6.4s" repeatCount="indefinite"/></circle>
+    <circle cx="930" cy="330" r="4" fill="#22d3ee" opacity="0.4"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5s" repeatCount="indefinite"/></circle>
+    <circle cx="1190" cy="120" r="3" fill="#a78bfa" opacity="0.5"><animate attributeName="cy" values="120;96;120" dur="5.6s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- mascot: bouncing document + scanning magnifier -->
+  <g transform="translate(150 40) scale(0.62)">
+    <ellipse cx="246" cy="402" rx="96" ry="15" fill="#000" opacity="0.28">
+      <animate attributeName="rx" values="96;70;98;84;96" keyTimes="0;0.35;0.62;0.82;1" dur="2.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.28;0.14;0.3;0.22;0.28" keyTimes="0;0.35;0.62;0.82;1" dur="2.4s" repeatCount="indefinite"/>
+    </ellipse>
+    <g transform="translate(236 336)">
+      <g>
+        <animateTransform attributeName="transform" type="scale" values="1 1;0.94 1.10;1.11 0.90;1.02 0.99;1 1" keyTimes="0;0.35;0.62;0.82;1" dur="2.4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0.6 0.35 1;0.5 0 0.8 0.4;0.2 0.7 0.4 1;0.4 0 0.4 1"/>
+        <g transform="translate(-236 -336)">
+          <animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -32;0 0;0 -9;0 0" keyTimes="0;0.35;0.62;0.82;1" dur="2.4s" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0.6 0.35 1;0.5 0 0.8 0.4;0.2 0.7 0.4 1;0.4 0 0.4 1"/>
+          <path d="M158 146 h118 l58 58 v170 a18 18 0 0 1 -18 18 H158 a18 18 0 0 1 -18 -18 V164 a18 18 0 0 1 18 -18 z" fill="#f8fafc"/>
+          <path d="M276 146 l58 58 h-44 a14 14 0 0 1 -14 -14 z" fill="#cbd5e1"/>
+          <rect x="178" y="236" width="120" height="11" rx="5.5" fill="#06b6d4" opacity="0.9"/>
+          <rect x="178" y="262" width="96" height="11" rx="5.5" fill="#9aa7b8"/>
+          <rect x="178" y="288" width="112" height="11" rx="5.5" fill="#9aa7b8"/>
+          <circle cx="196" cy="206" r="12" fill="#fb7185" opacity="0.5"/>
+          <circle cx="300" cy="206" r="12" fill="#fb7185" opacity="0.5"/>
+          <ellipse cx="214" cy="198" rx="11" ry="12" fill="#0f172a"><animate attributeName="ry" values="12;12;1.5;12;12" keyTimes="0;0.84;0.89;0.94;1" dur="3.6s" repeatCount="indefinite"/></ellipse>
+          <ellipse cx="282" cy="198" rx="11" ry="12" fill="#0f172a"><animate attributeName="ry" values="12;12;1.5;12;12" keyTimes="0;0.84;0.89;0.94;1" dur="3.6s" repeatCount="indefinite"/></ellipse>
+          <circle cx="217.5" cy="194" r="3.6" fill="#fff"/>
+          <circle cx="285.5" cy="194" r="3.6" fill="#fff"/>
+          <path d="M226 214 q22 17 44 0" fill="none" stroke="#0f172a" stroke-width="5.5" stroke-linecap="round"><animate attributeName="d" values="M226 214 q22 17 44 0;M226 212 q22 23 44 0;M226 214 q22 17 44 0" keyTimes="0;0.35;1" dur="2.4s" repeatCount="indefinite"/></path>
+        </g>
+      </g>
+    </g>
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0 256 256" to="360 256 256" dur="9s" repeatCount="indefinite"/>
+      <g transform="translate(372 150)">
+        <circle r="35" fill="#06b6d4" opacity="0.14"/>
+        <circle r="35" fill="none" stroke="url(#dd-ring)" stroke-width="11"/>
+        <rect x="24" y="24" width="44" height="14" rx="7" transform="rotate(45 24 24)" fill="url(#dd-ring)"/>
+        <circle cx="-10" cy="-12" r="7" fill="#fff" opacity="0.85"><animate attributeName="opacity" values="0.45;1;0.45" dur="1.3s" repeatCount="indefinite"/></circle>
+      </g>
+    </g>
+  </g>
+
+  <!-- wordmark -->
+  <text x="500" y="180" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="92" font-weight="800" fill="url(#ddh-title)" letter-spacing="-2">DocDrift</text>
+  <text x="504" y="232" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="27" font-weight="500" fill="#aebbd0">AI code &#8596; docs drift detector — built on Anna</text>
+
+  <!-- feature pills -->
+  <g font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="20" font-weight="600">
+    <g><rect x="504" y="270" width="150" height="44" rx="22" fill="#0e2630" stroke="#22d3ee" stroke-opacity="0.4"/><text x="579" y="298" fill="#7fe6f5" text-anchor="middle">Anna App</text></g>
+    <g><rect x="666" y="270" width="186" height="44" rx="22" fill="#171430" stroke="#a78bfa" stroke-opacity="0.4"/><text x="759" y="298" fill="#c4b5fd" text-anchor="middle">AES-GCM-256</text></g>
+    <g><rect x="864" y="270" width="168" height="44" rx="22" fill="#0e2630" stroke="#22d3ee" stroke-opacity="0.4"/><text x="948" y="298" fill="#7fe6f5" text-anchor="middle">Embeddings</text></g>
+    <g><rect x="1044" y="270" width="120" height="44" rx="22" fill="#171430" stroke="#a78bfa" stroke-opacity="0.4"/><text x="1104" y="298" fill="#c4b5fd" text-anchor="middle">APS KV</text></g>
+  </g>
+
+  <!-- sparkles -->
+  <path d="M470 90 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5z" fill="#a78bfa"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.4s" repeatCount="indefinite"/></path>
+  <path d="M1210 300 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z" fill="#22d3ee"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.4s" begin="1s" repeatCount="indefinite"/></path>
+</svg>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocDrift — Code↔Docs Drift Detector</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <meta name="theme-color" content="#06b6d4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css?v=3">
+</head>
+<body>
+  <div class="app-container">
+    <div class="bg-mesh"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-noise"></div>
+
+    <!-- Header Navigation -->
+    <header>
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="var(--primary)" stroke-width="8" stroke-dasharray="16 8" opacity="0.8"/>
+            <circle cx="50" cy="50" r="24" stroke="var(--accent)" stroke-width="8" stroke-dasharray="12 6"/>
+            <circle cx="50" cy="50" r="8" fill="var(--primary)"/>
+          </svg>
+        </div>
+        <div class="brand-name">Doc<span class="text-gradient">Drift</span></div>
+      </div>
+      <div class="header-actions">
+        <div class="status-badge" id="host-connection-badge" style="display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); padding: 6px 12px; border-radius: var(--radius-8); margin-right: 8px; color: var(--text-hi);">
+          <span class="status-dot mock" id="status-dot" style="width: 8px; height: 8px; background: #ef4444; border-radius: 50%; box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); display: inline-block;"></span>
+          <span id="connection-status-text">STANDALONE (MOCK)</span>
+        </div>
+        <button id="nav-workspace-btn" class="btn" style="padding: 6px 12px; font-size: 12px; font-family: var(--font-mono); border-color: var(--primary);">📂 Workspace</button>
+        <button id="nav-anna-console-btn" class="btn" style="padding: 6px 12px; font-size: 12px; font-family: var(--font-mono); border-color: var(--accent); color: var(--text-hi);">🎮 Anna Console</button>
+        <button id="reset-btn" class="btn" style="padding: 6px 12px; font-size: 12px; font-family: var(--font-mono)">Reset State</button>
+      </div>
+    </header>
+
+    <!-- Main Views -->
+    <main>
+      
+      <!-- ================= WORKSPACE VIEW ================= -->
+      <section id="workspace-view" class="view-section active">
+        <div class="setup-grid">
+          <!-- Configuration Card -->
+          <div class="setup-card glass-panel">
+            <h2 style="font-family: var(--font-display); font-size: 20px; margin-top: 0;">Code↔Docs Auditor Setup</h2>
+            <p style="color: var(--text-mid); font-size: 14px; margin-bottom: 24px;">Enter your local project workspace directory path to index exports and check documentation drift.</p>
+            
+            <div class="form-group">
+              <label for="workspace-path">Local Repository Path</label>
+              <input type="text" id="workspace-path" placeholder="e.g. /absolute/path/to/my-app" value=".">
+            </div>
+
+            <button id="scan-btn" class="btn btn-primary" style="width: 100%; justify-content: center; height: 48px;">
+              <span>🔍 Run Audit Scan</span>
+            </button>
+          </div>
+
+          <!-- Quick Actions / Seed Demo -->
+          <div class="setup-card glass-panel" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h3 style="font-family: var(--font-display); font-size: 16px; margin-top: 0; color: var(--primary)">Simulation Sandbox</h3>
+              <p style="color: var(--text-mid); font-size: 13px; line-height: 1.4;">Pre-populate Workspace state with 14 anomalous drifts across Javascript, Python, and Go files for audit testing.</p>
+            </div>
+            <button id="seed-demo-btn" class="btn btn-success" style="width: 100%; justify-content: center;">
+              <span>⚡ Load 14 Seed Drifts</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scanning State Indicator -->
+        <div id="scanning-card" class="glass-panel" style="display: none; padding: 40px; text-align: center; margin-bottom: 40px;">
+          <div class="spinner" style="width: 48px; height: 48px; border-width: 4px; margin-bottom: 20px;"></div>
+          <h3 id="scanning-title" style="font-family: var(--font-display); margin: 0 0 8px 0;">Auditing Workspace...</h3>
+          <p id="scanning-status" style="color: var(--text-mid); font-family: var(--font-mono); font-size: 13px;">Walking local directory, parsing code exports, compiling symbols...</p>
+        </div>
+
+        <!-- Audit Dashboard (Hidden initially) -->
+        <div id="audit-dashboard" style="display: none;">
+          <div class="stats-row">
+            <div class="stat-card glass-panel">
+              <div id="stat-files" class="stat-val">0</div>
+              <div class="stat-lbl">Files Scanned</div>
+            </div>
+            <div class="stat-card glass-panel">
+              <div id="stat-symbols" class="stat-val">0</div>
+              <div class="stat-lbl">Extracted Symbols</div>
+            </div>
+            <div class="stat-card glass-panel">
+              <div id="stat-drifts" class="stat-val" style="color: var(--color-error)">0</div>
+              <div class="stat-lbl">Stale References</div>
+            </div>
+            <div class="stat-card glass-panel">
+              <div id="stat-score" class="stat-val" style="color: var(--color-success)">100%</div>
+              <div class="stat-lbl">Documentation Health</div>
+            </div>
+          </div>
+
+          <div class="dashboard-layout">
+            <!-- Summary HSL Pie Chart -->
+            <div class="chart-card glass-panel">
+              <h3 style="font-family: var(--font-display); font-size: 15px; margin: 0 0 10px 0; text-align: center;">Drift Breakdown</h3>
+              <svg id="drift-chart" class="chart-svg" viewBox="0 0 36 36">
+                <!-- Circular pie segments are programmatically built here -->
+                <circle cx="18" cy="18" r="15.915" fill="none" stroke="#222" stroke-width="3"></circle>
+              </svg>
+              <div id="chart-legend" class="chart-legend">
+                <!-- Legend list goes here -->
+              </div>
+            </div>
+
+            <!-- Stale References Queue -->
+            <div class="queue-card glass-panel">
+              <div class="queue-header">
+                <h3 class="queue-title">Unresolved Drift Items</h3>
+                <span id="queue-count-badge" class="tech-pill">0 items</span>
+              </div>
+              <div style="overflow-x: auto;">
+                <table class="drift-table">
+                  <thead>
+                    <tr>
+                      <th>Document</th>
+                      <th>Reference</th>
+                      <th>Classified Drift</th>
+                      <th>Confidence</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="drift-queue-body">
+                    <tr>
+                      <td colspan="5" style="text-align: center; color: var(--text-low); padding: 40px 0;">No active scan results loaded. Configure path above to scan.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <!-- Export patch footer actions -->
+              <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+                <span id="patch-status" style="font-size: 13px; color: var(--text-mid); font-family: var(--font-mono)">Accepted fixes: 0 / <span class="total-drifts-count">0</span></span>
+                <button id="export-btn" class="btn btn-primary" disabled>
+                  <span>📦 Generate Patch & Upload R2</span>
+                </button>
+              </div>
+              
+              <!-- Exported Patch Details -->
+              <div id="patch-result-box" style="display: none; margin-top: 16px; padding: 16px; background: rgba(6, 182, 212, 0.05); border: 1px solid var(--primary-glow); border-radius: var(--radius-12);">
+                <h4 style="margin: 0 0 8px 0; font-family: var(--font-display); font-size: 14px; color: var(--primary)">Patch Uploaded to Cloudflare R2</h4>
+                <p style="font-size: 13px; color: var(--text-mid); margin: 0 0 12px 0;">Your documentation corrections are bundled into a verified <code>.patch</code> package.</p>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                  <input type="text" id="patch-url-input" readonly style="flex-grow: 1; padding: 8px 12px;">
+                  <button id="copy-patch-url-btn" class="btn" style="padding: 8px 16px;">Copy Link</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= DRIFT VIEWER VIEW ================= -->
+      <section id="drift-viewer-view" class="view-section">
+        <div class="viewer-layout">
+          <!-- Code Compare Panel -->
+          <div class="review-panel glass-panel">
+            <div class="review-header">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span id="viewer-badge" class="drift-badge renamed">Renamed</span>
+                <span id="viewer-confidence" style="font-family: var(--font-mono); font-size: 12px; color: var(--text-low)">Confidence: 98%</span>
+              </div>
+              <h2 id="viewer-title" style="font-family: var(--font-display); font-size: 22px; margin: 0 0 4px 0;">Stale Reference Audit</h2>
+              <div class="review-filepath">Doc: <span id="viewer-filepath-doc" style="color: var(--text-hi)">README.md:15</span> | Target Code: <span id="viewer-filepath-code" style="color: var(--primary)">src/users.js</span></div>
+            </div>
+
+            <div class="diff-container">
+              <!-- Left: Original Stale Context -->
+              <div class="diff-box original">
+                <div class="diff-box-title">Stale Document Reference</div>
+                <div id="viewer-original-content" class="diff-content">getUser(id)</div>
+              </div>
+              
+              <!-- Right: Suggested AI Correction -->
+              <div class="diff-box suggestion">
+                <div class="diff-box-title">AI Suggested Correction</div>
+                <div id="viewer-suggested-content" class="diff-content" contenteditable="true">fetchUser(id, options)</div>
+              </div>
+            </div>
+
+            <!-- Correction Action Trays -->
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 20px;">
+              <button id="viewer-back-btn" class="btn">
+                <span>◀ Back to Workspace</span>
+              </button>
+              <div style="display: flex; gap: 12px;">
+                <button id="viewer-skip-btn" class="btn">
+                  <span>Skip Drift</span>
+                </button>
+                <button id="viewer-accept-btn" class="btn btn-success">
+                  <span>Accept and Fix</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Doc Auditor Chat Column -->
+          <div class="chat-panel glass-panel">
+            <h3 style="font-family: var(--font-display); font-size: 16px; margin: 0 0 4px 0; display: flex; align-items: center; gap: 8px;">
+              <span>🤖</span> Doc Auditor Agent
+            </h3>
+            <p style="color: var(--text-low); font-size: 12px; margin: 0 0 16px 0; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px;">Discuss documentation context and API signature details in real time.</p>
+            
+            <div id="chat-box" class="chat-messages">
+              <div class="chat-bubble agent">
+                Hello! I am your AI Doc Auditor. I analyzed the drift here. Ask me why this signature changed or how to integrate the suggestions.
+              </div>
+            </div>
+
+            <div class="chat-input-row">
+              <input type="text" id="chat-input-field" class="chat-input" placeholder="Ask Auditor agent...">
+              <button id="chat-send-btn" class="btn btn-primary" style="padding: 10px 16px;">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ANNA DEV CONSOLE VIEW ================= -->
+      <section id="anna-console-view" class="view-section">
+        <div style="margin:0 0 16px;padding:12px 16px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;background:rgba(255,255,255,0.03);font-size:12px;line-height:1.55;color:#9aa7b8;">
+          <strong style="color:#e6edf3;">🛠️ Developer Console</strong> — a live playground that exercises the Anna Host-API surface (tools · storage · chat · agent sessions · image · upload). Inside the Anna host these route to the <strong style="color:#e6edf3;">real platform</strong>; running <strong style="color:#e6edf3;">standalone</strong> (see badge), calls return clearly-labeled <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:4px;">mock</code> responses so you can preview the flow without an account.
+        </div>
+        <div class="console-layout">
+          <!-- Left: SDK Capabilities Sandbox -->
+          <div class="console-left">
+            
+            <!-- 1. Agent Sessions Controller -->
+            <div class="console-card glass-panel">
+              <h3 style="font-family: var(--font-display); font-size: 14px; margin-top: 0; color: var(--accent);">1. Agent Sessions (L2 multi-turn)</h3>
+              <div class="console-grid">
+                <div>
+                  <label style="font-size: 11px; color: var(--text-mid);">Session Label</label>
+                  <input type="text" id="sdk-agent-label" class="console-input" value="DocDrift Sandbox Session">
+                </div>
+                <div>
+                  <label style="font-size: 11px; color: var(--text-mid);">TTL Seconds</label>
+                  <input type="number" id="sdk-agent-ttl" class="console-input" value="600">
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
+                <button id="sdk-agent-create" class="btn btn-primary" style="font-size: 11px; padding: 6px 10px;">Create</button>
+                <button id="sdk-agent-run" class="btn" style="font-size: 11px; padding: 6px 10px;" disabled>Run Turn</button>
+                <button id="sdk-agent-cancel" class="btn btn-warning" style="font-size: 11px; padding: 6px 10px;" disabled>Cancel</button>
+                <button id="sdk-agent-history" class="btn" style="font-size: 11px; padding: 6px 10px;" disabled>History</button>
+                <button id="sdk-agent-refresh" class="btn" style="font-size: 11px; padding: 6px 10px;" disabled>Refresh TTL</button>
+                <button id="sdk-agent-list" class="btn" style="font-size: 11px; padding: 6px 10px;">List</button>
+                <button id="sdk-agent-delete" class="btn btn-error" style="font-size: 11px; padding: 6px 10px;" disabled>Delete</button>
+              </div>
+              <div id="sdk-agent-chat-area" style="display: none; margin-top: 8px; border: 1px solid var(--border-subtle); border-radius: var(--radius-8); padding: 8px; background: rgba(0,0,0,0.2);">
+                <div id="sdk-agent-messages" style="height: 120px; overflow-y: auto; font-size: 12px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px;"></div>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="sdk-agent-input" class="console-input" style="margin-bottom: 0;" placeholder="Prompt the session agent...">
+                  <button id="sdk-agent-send" class="btn btn-primary" style="font-size: 11px; padding: 6px 12px;">Send</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. AI Media & Vision Studio -->
+            <div class="console-card glass-panel">
+              <h3 style="font-family: var(--font-display); font-size: 14px; margin-top: 0; color: var(--primary);">2. AI Image Generator & Editor</h3>
+              <input type="text" id="sdk-image-prompt" class="console-input" value="Military SOC dashboard, cybernetic nodes, vector blueprint">
+              <div class="console-grid">
+                <div>
+                  <label style="font-size: 11px; color: var(--text-mid);">Size</label>
+                  <select id="sdk-image-size" class="console-input">
+                    <option value="1024x1024">1024x1024</option>
+                    <option value="512x512">512x512</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size: 11px; color: var(--text-mid);">Image URL (for Edit)</label>
+                  <input type="text" id="sdk-image-url" class="console-input" placeholder="Optional: Edit URL">
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                <button id="sdk-image-generate" class="btn btn-primary" style="font-size: 11px; padding: 6px 10px;">Generate Image</button>
+                <button id="sdk-image-edit" class="btn" style="font-size: 11px; padding: 6px 10px;">Edit Image (Inpaint)</button>
+              </div>
+              <div id="sdk-image-result" style="display: none; text-align: center; margin-top: 8px;">
+                <img id="sdk-image-img" style="max-width: 100%; max-height: 150px; border-radius: var(--radius-8); border: 1px solid var(--primary);" src="" alt="SDK Visual">
+              </div>
+            </div>
+
+            <!-- 3. Embeddings & Semantic Similarity -->
+            <div class="console-card glass-panel">
+              <h3 style="font-family: var(--font-display); font-size: 14px; margin-top: 0; color: var(--color-info);">3. LLM Embeddings & complete</h3>
+              <textarea id="sdk-embed-text" class="console-textarea" placeholder="Enter text to embed or pass to LLM complete..."></textarea>
+              <div style="display: flex; gap: 8px;">
+                <button id="sdk-embed-btn" class="btn" style="font-size: 11px; padding: 6px 10px;">Embed Text</button>
+                <button id="sdk-complete-btn" class="btn btn-primary" style="font-size: 11px; padding: 6px 10px;">LLM Complete</button>
+              </div>
+              <div id="sdk-embed-result" style="display: none; font-family: var(--font-mono); font-size: 10px; color: var(--text-mid); margin-top: 8px; white-space: pre-wrap; word-break: break-all; max-height: 80px; overflow-y: auto;"></div>
+            </div>
+
+            <!-- 4. Durable File Vault & KV Store -->
+            <div class="console-card glass-panel">
+              <h3 style="font-family: var(--font-display); font-size: 14px; margin-top: 0; color: var(--color-success);">4. APS Durable Storage & Uploads</h3>
+              <div class="console-grid">
+                <div>
+                  <label style="font-size: 11px; color: var(--text-mid);">KV Key</label>
+                  <input type="text" id="sdk-kv-key" class="console-input" value="test_setting">
+                </div>
+                <div>
+                  <label style="font-size: 11px; color: var(--text-mid);">KV Value</label>
+                  <input type="text" id="sdk-kv-val" class="console-input" value="enabled">
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
+                <button id="sdk-kv-get" class="btn" style="font-size: 11px; padding: 6px 10px;">KV Get</button>
+                <button id="sdk-kv-set" class="btn btn-success" style="font-size: 11px; padding: 6px 10px;">KV Set</button>
+                <button id="sdk-kv-delete" class="btn btn-error" style="font-size: 11px; padding: 6px 10px;">KV Delete</button>
+                <button id="sdk-kv-list" class="btn" style="font-size: 11px; padding: 6px 10px;">KV List Prefix</button>
+              </div>
+              <div style="border-top: 1px solid var(--border-subtle); padding-top: 8px; margin-top: 8px;">
+                <label style="font-size: 11px; color: var(--text-mid);">Negotiated Upload File</label>
+                <input type="file" id="sdk-upload-file" class="console-input">
+                <button id="sdk-upload-btn" class="btn btn-primary" style="font-size: 11px; padding: 6px 10px; width: 100%; justify-content: center;">Start Negotiated Upload</button>
+              </div>
+            </div>
+
+            <!-- 5. Egress & Window Controls -->
+            <div class="console-card glass-panel">
+              <h3 style="font-family: var(--font-display); font-size: 14px; margin-top: 0; color: var(--color-warning);">5. Window, Tools List & Chat Egress</h3>
+              <div class="console-grid">
+                <div>
+                  <label style="font-size: 11px; color: var(--text-mid);">Window Title</label>
+                  <input type="text" id="sdk-win-title" class="console-input" value="DocDrift Pro">
+                </div>
+                <div>
+                  <label style="font-size: 11px; color: var(--text-mid);">View Name</label>
+                  <input type="text" id="sdk-win-view" class="console-input" value="drift_viewer">
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
+                <button id="sdk-win-title-btn" class="btn" style="font-size: 11px; padding: 6px 10px;">Set Title</button>
+                <button id="sdk-win-open-btn" class="btn" style="font-size: 11px; padding: 6px 10px;">Open View</button>
+                <button id="sdk-win-close-btn" class="btn btn-error" style="font-size: 11px; padding: 6px 10px;">Close Window</button>
+                <button id="sdk-tools-list-btn" class="btn" style="font-size: 11px; padding: 6px 10px;">List Executa Tools</button>
+              </div>
+              <div style="border-top: 1px solid var(--border-subtle); padding-top: 8px; margin-top: 8px;">
+                <input type="text" id="sdk-chat-msg" class="console-input" value="DocDrift audit resolution completed.">
+                <div style="display: flex; gap: 8px;">
+                  <button id="sdk-chat-msg-btn" class="btn" style="font-size: 11px; padding: 6px 10px; flex-grow: 1; justify-content: center;">Write to Chat</button>
+                  <button id="sdk-chat-artifact-btn" class="btn btn-primary" style="font-size: 11px; padding: 6px 10px; flex-grow: 1; justify-content: center;">Append Artifact</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Running SDK Log & Terminal -->
+          <div class="console-right">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <h3 style="font-family: var(--font-display); font-size: 14px; margin: 0; color: var(--primary);">Live SDK Event Stream</h3>
+              <button id="console-clear-logs" class="btn" style="font-size: 11px; padding: 4px 8px;">Clear Logs</button>
+            </div>
+            <div id="sdk-log-box" class="console-log-box">
+              <div class="log-entry">
+                <span class="log-time">[00:00:00]</span>
+                <span class="log-method">SYSTEM</span>: Console initialized. Awaiting API triggers...
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Toast Notification Popup -->
+    <div id="toast-el" class="toast">
+      <span id="toast-icon">✓</span>
+      <span id="toast-text">Action completed successfully</span>
+    </div>
+
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tool-dev-docdrift"
+version = "0.3.0"
+requires-python = ">=3.10"
+dependencies = [
+    "cryptography>=41.0.0"
+]
+
+[project.scripts]
+tool-dev-docdrift = "plugin:main"
+
+[tool.hatch.build.targets.wheel]
+only-include = ["plugin.py"]
