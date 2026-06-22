@@ -99,7 +99,16 @@ mkdir -p "$OUT_DIR/staging-$PLATFORM/bin"
 
 echo "==> Building single-file executable with PyInstaller"
 
-$UV_CMD run --with pyinstaller python -m PyInstaller \
+UV_PLATFORM_FLAG=""
+if [ "$PLATFORM" = "darwin-x86_64" ]; then
+  UV_PLATFORM_FLAG="--python-platform x86_64-apple-darwin"
+elif [ "$PLATFORM" = "darwin-arm64" ]; then
+  UV_PLATFORM_FLAG="--python-platform aarch64-apple-darwin"
+elif [ "$PLATFORM" = "linux-x86_64" ]; then
+  UV_PLATFORM_FLAG="--python-platform x86_64-unknown-linux-gnu"
+fi
+
+$UV_CMD run $UV_PLATFORM_FLAG --with pyinstaller python -m PyInstaller \
   --onefile \
   --clean \
   --noupx \
