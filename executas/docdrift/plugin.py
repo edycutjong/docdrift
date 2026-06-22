@@ -27,7 +27,7 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 MANIFEST = {
     "name": "docdrift",
     "display_name": "DocDrift Engine",
-    "version": "0.3.0",
+    "version": "1.0.0",
     "description": "Scans workspace directory, extracts code symbols, audits markdown documents, and generates patches.",
     "author": "DocDrift",
     "icon": "🔍",

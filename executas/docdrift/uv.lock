@@ -152,7 +152,7 @@ wheels = [
 
 [[package]]
 name = "tool-edycutjong-docdrift-wxjwg6r2"
-version = "0.3.0"
+version = "1.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "cryptography" },

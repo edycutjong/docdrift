@@ -13,3 +13,9 @@ __pycache__/
 
 docs/assets
 docdrift_demo.mp4
+
+# Build and packaging directories
+build/
+dist/
+dist-anna/
+*.spec

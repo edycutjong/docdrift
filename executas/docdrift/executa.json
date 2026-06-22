@@ -12,10 +12,15 @@
   "host_capabilities": ["aps.kv", "host.upload"],
 
   "distribution": {
-    "active": "local",
+    "active": "binary",
     "profiles": {
       "local": {
         "type": "local",
+        "supports_protocol": true,
+        "capabilities": ["project.scan", "docs.crossref", "docs.patchgen"]
+      },
+      "binary": {
+        "type": "binary",
         "supports_protocol": true,
         "capabilities": ["project.scan", "docs.crossref", "docs.patchgen"]
       }

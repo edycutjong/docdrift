@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "tool-edycutjong-docdrift-wxjwg6r2"
-version = "0.3.0"
+version = "1.0.0"
 requires-python = ">=3.10"
 dependencies = [
     "cryptography>=41.0.0"
