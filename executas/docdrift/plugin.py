@@ -31,7 +31,7 @@ MANIFEST = {
     "description": "Scans workspace directory, extracts code symbols, audits markdown documents, and generates patches.",
     "author": "DocDrift",
     "icon": "🔍",
-    "category": "developer-tools",
+    "category": "developer",
     "license": "MIT",
     "host_capabilities": ["llm.sample", "llm.embed", "llm.image", "llm.agent.auto", "host.upload"],
     "tools": [
