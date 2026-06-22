@@ -73,7 +73,11 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
         run: |
           chmod +x package_binary.sh
-          ./package_binary.sh
+          if [ "${{ matrix.platform }}" = "darwin-x86_64" ]; then
+            arch -x86_64 ./package_binary.sh
+          else
+            ./package_binary.sh
+          fi
 
           expected="dist-anna/$TOOL_ID-$PLATFORM.tar.gz"
           test -f "$expected"
