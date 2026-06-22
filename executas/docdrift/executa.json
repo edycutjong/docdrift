@@ -26,18 +26,18 @@
         "binary_urls": {
           "darwin-arm64": {
             "url": "https://github.com/edycutjong/docdrift/releases/download/v1.0.3/tool-edycutjong-docdrift-wxjwg6r2-darwin-arm64.tar.gz",
-            "size": 12240361,
-            "sha256": "ab06bbedf96e5f7e8bcabc928ea2cdeb89d874bf06ff78940095cc1200439908"
+            "size": 12241435,
+            "sha256": "d7c69b8b81708b50e4ede243b184c88cf416fd98df6a2c056d588b9e587b1ef7"
           },
           "darwin-x86_64": {
             "url": "https://github.com/edycutjong/docdrift/releases/download/v1.0.3/tool-edycutjong-docdrift-wxjwg6r2-darwin-x86_64.tar.gz",
-            "size": 13148598,
-            "sha256": "85da74fe7e59e51e47e32ec10c2a03ebff5c5013a72fe7fc4c29607d42a903ba"
+            "size": 13150167,
+            "sha256": "fe6c9d558045f07a3afa9d1677f648c4a7011b2125f14b7fbf17a33e161aa157"
           },
           "linux-x86_64": {
             "url": "https://github.com/edycutjong/docdrift/releases/download/v1.0.3/tool-edycutjong-docdrift-wxjwg6r2-linux-x86_64.tar.gz",
-            "size": 23177229,
-            "sha256": "7522daaa403a9e8b613290e65e9ccf5cf638fdf0c828ec505638eff80a29e7c4"
+            "size": 23175525,
+            "sha256": "946533d265c6cdb99c77e54283d44090a979dd845ccbd489b4323e2cb6c6a401"
           }
         }
       }
