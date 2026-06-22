@@ -11,7 +11,7 @@
   ],
   "required_executas": [
     {
-      "tool_id": "tool-dev-docdrift",
+      "tool_id": "bundled:docdrift",
       "min_version": "0.3.0",
       "version": "latest"
     }

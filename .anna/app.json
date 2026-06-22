@@ -1,0 +1,8 @@
+{
+  "$schema": "anna-app-identity/v1",
+  "host": "https://anna.partners",
+  "app_id": 121,
+  "slug": "docdrift",
+  "handle": "edycutjong",
+  "first_published_at": "2026-06-22T02:22:44.134Z"
+}

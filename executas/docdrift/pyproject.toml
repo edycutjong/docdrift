@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "tool-dev-docdrift"
+name = "tool-edycutjong-docdrift-wxjwg6r2"
 version = "0.3.0"
 requires-python = ">=3.10"
 dependencies = [
@@ -11,7 +11,7 @@ dependencies = [
 ]
 
 [project.scripts]
-tool-dev-docdrift = "plugin:main"
+tool-edycutjong-docdrift-wxjwg6r2 = "plugin:main"
 
 [tool.hatch.build.targets.wheel]
 only-include = ["plugin.py"]

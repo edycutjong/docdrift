@@ -5,7 +5,7 @@
   "executa_type": "tool",
   "description": "Scans codebase, extracts symbols, hashes codebase state, encrypts snippets under AES-GCM-256, and cross-references markdown documentation. Persists scan history to Anna Persistent Storage (APS KV) and uploads patch artifacts to R2.",
 
-  "tool_id": "tool-dev-docdrift",
+  "tool_id": "tool-edycutjong-docdrift-wxjwg6r2",
   "type": "python",
   "enabled": true,
 
