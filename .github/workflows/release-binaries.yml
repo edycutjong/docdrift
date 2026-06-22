@@ -74,6 +74,8 @@ jobs:
         run: |
           chmod +x package_binary.sh
           if [ "${{ matrix.platform }}" = "darwin-x86_64" ]; then
+            export ARCHFLAGS="-arch x86_64"
+            export _PYTHON_HOST_PLATFORM="macosx-10.9-x86_64"
             arch -x86_64 ./package_binary.sh
           else
             ./package_binary.sh
