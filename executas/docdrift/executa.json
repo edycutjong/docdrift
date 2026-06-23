@@ -1,7 +1,7 @@
 {
   "slug": "docdrift",
   "name": "DocDrift Engine",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "executa_type": "tool",
   "description": "Scans codebase, extracts symbols, hashes codebase state, encrypts snippets under AES-GCM-256, and cross-references markdown documentation. Persists scan history to Anna Persistent Storage (APS KV) and uploads patch artifacts to R2.",
 
@@ -25,17 +25,17 @@
         "capabilities": ["project.scan", "docs.crossref", "docs.patchgen"],
         "binary_urls": {
           "darwin-arm64": {
-            "url": "https://github.com/edycutjong/docdrift/releases/download/v1.0.3/tool-edycutjong-docdrift-wxjwg6r2-darwin-arm64.tar.gz",
+            "url": "https://github.com/edycutjong/docdrift/releases/download/v1.0.4/tool-edycutjong-docdrift-wxjwg6r2-darwin-arm64.tar.gz",
             "size": 12241435,
             "sha256": "d7c69b8b81708b50e4ede243b184c88cf416fd98df6a2c056d588b9e587b1ef7"
           },
           "darwin-x86_64": {
-            "url": "https://github.com/edycutjong/docdrift/releases/download/v1.0.3/tool-edycutjong-docdrift-wxjwg6r2-darwin-x86_64.tar.gz",
+            "url": "https://github.com/edycutjong/docdrift/releases/download/v1.0.4/tool-edycutjong-docdrift-wxjwg6r2-darwin-x86_64.tar.gz",
             "size": 13150167,
             "sha256": "fe6c9d558045f07a3afa9d1677f648c4a7011b2125f14b7fbf17a33e161aa157"
           },
           "linux-x86_64": {
-            "url": "https://github.com/edycutjong/docdrift/releases/download/v1.0.3/tool-edycutjong-docdrift-wxjwg6r2-linux-x86_64.tar.gz",
+            "url": "https://github.com/edycutjong/docdrift/releases/download/v1.0.4/tool-edycutjong-docdrift-wxjwg6r2-linux-x86_64.tar.gz",
             "size": 23175525,
             "sha256": "946533d265c6cdb99c77e54283d44090a979dd845ccbd489b4323e2cb6c6a401"
           }

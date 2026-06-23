@@ -1,6 +1,6 @@
 {
   "name": "docdrift",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "description": "AI code-to-docs drift detector — Anna App",
   "scripts": {
