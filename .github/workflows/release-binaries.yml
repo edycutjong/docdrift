@@ -64,7 +64,7 @@ jobs:
           python-version: "3.11"
           architecture: ${{ matrix.arch }}
 
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
 
       - name: Build binary archive
         working-directory: ${{ env.EXECUTA_DIR }}
